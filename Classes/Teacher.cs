@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp1.Classes;
+﻿using System.Collections;
+
+namespace ConsoleApp1.Classes;
 
 public class Teacher
 {
@@ -6,30 +8,47 @@ public class Teacher
     public string lname { get; set; }
     public DateTime birthDate { get; set; }
     public string Departament { get; set; }
-    private List<Subject> subjects;
-
+    public ArrayList Subjects { get; set; }
+    
     public Teacher(string fname, string lname)
     {
         this.fname = fname;
         this.lname = lname;
+        Subjects = new ArrayList();
+    }
+    
+
+    public void AddSubjects(Subject subject)
+    {
+        Subjects.Add(subject);
     }
 
-    public void teacher()
+    public bool HasSubjects()
     {
-        subjects = new List<Subject>();
+        return Subjects.Count > 0;
     }
-    public void showSubjects()
+    
+    public void showSubjects(Teacher teacher)
+    {
+        if (HasSubjects())
+        {
+            Console.WriteLine($"{teacher.fname} teaches the following subjects:");
+            foreach (Subject subject in Subjects)
+            {
+                Console.WriteLine($"Subject code: {subject.subjectCode}, Name: {subject.name}");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"{teacher.fname} has no any subjects");
+        }
+    }
+
+    public void getNumberOfSubjects(Subject subject, Teacher teacher)
     {
         
     }
 
-    static void Main()
-    {
-        Teacher teacher1 = new Teacher("Sardor", "G`aniev");
-        Subject subject1 = new Subject(1, "Math");
-        Subject subject2 = new Subject(2, "English Lang");
-        Subject subject3 = new Subject(3, "Cloud Computing");
-        
-        
-    }
+    
+    
 }
