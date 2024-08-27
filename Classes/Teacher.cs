@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using ConsoleApp1.Classes;
 
 namespace ConsoleApp1.Classes;
 
@@ -7,48 +7,51 @@ public class Teacher
     public string fname { get; set; }
     public string lname { get; set; }
     public DateTime birthDate { get; set; }
-    public string Departament { get; set; }
-    public ArrayList Subjects { get; set; }
-    
+    public string departament { get; set; }
+    public List<Subject> Subjects { get; set; }
+
     public Teacher(string fname, string lname)
     {
         this.fname = fname;
         this.lname = lname;
-        Subjects = new ArrayList();
+        Subjects = new List<Subject>();
     }
-    
 
     public void AddSubjects(Subject subject)
     {
         Subjects.Add(subject);
     }
 
-    public bool HasSubjects()
+   
+    public void showSubjects()
     {
-        return Subjects.Count > 0;
+        foreach (Subject subject in Subjects)
+        {
+            Console.WriteLine($"Teacher: {fname} has {subject.name}");
+        }
+    }
+
+    public int getNumberOfSubjects()
+    {
+        return Subjects.Count;
     }
     
-    public void showSubjects(Teacher teacher)
+    public bool checkSubjects()
     {
-        if (HasSubjects())
+        if (Subjects.Count > 0)
         {
-            Console.WriteLine($"{teacher.fname} teaches the following subjects:");
-            foreach (Subject subject in Subjects)
+            Console.WriteLine($"Subjects assigned to {fname}:");
+            foreach (var subject in Subjects)
             {
-                Console.WriteLine($"Subject code: {subject.subjectCode}, Name: {subject.name}");
+                Console.WriteLine($"- {subject.name} (Code: {subject.subjectCode})");
             }
+            return true;
         }
         else
         {
-            Console.WriteLine($"{teacher.fname} has no any subjects");
+            Console.WriteLine($"{fname} has no subjects assigned.");
+            return false;
         }
     }
-
-    public void getNumberOfSubjects(Subject subject, Teacher teacher)
-    {
-        
-    }
-
-    
     
 }
